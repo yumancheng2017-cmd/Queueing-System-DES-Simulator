@@ -90,14 +90,51 @@ Queueing-System-DES-Simulator/
 
 ## Results
 
-The discrete-event simulation results closely follow the corresponding analytical results across the tested queueing configurations.
+### Single-Server Queueing Systems
 
-The experiments demonstrate several fundamental queueing effects:
+The simulator was evaluated on several single-server queueing models, including **M/M/1**, **M/M/1/K**, **M/G/1**, and **M/D/1**.
 
-- Finite system capacity can limit queue growth in M/M/1/K systems.
-- Service-time variability affects queue length and total time even when the average service rate is similar.
-- Multi-server systems become increasingly congested as utilization approaches system capacity.
-- Increasing the simulation duration reduces the statistical variation between simulated and analytical results.
+The simulated results closely match the corresponding analytical results, which validates the correctness of the discrete-event simulation engine.
+
+#### Average System Size
+
+![Average system size for single-server systems](Results/Figure_1.png)
+
+#### Average Time in System
+
+![Average time in system for single-server systems](Results/Figure_2.png)
+
+Several important queueing effects can be observed:
+
+- Compared with **M/M/1**, the **M/M/1/K** systems have smaller average system size and shorter average time in the system because the finite capacity limits congestion.
+- The **M/M/1/K (6 min)** case remains stable even when the traffic intensity is close to `1`, since the finite capacity prevents unbounded queue growth.
+- Among the infinite-capacity single-server systems, **M/M/1** has the largest average system size and the longest average time, **M/G/1** is intermediate, and **M/D/1** performs the best.
+- This shows that queueing performance depends not only on the traffic intensity, but also on the variability of the service-time distribution.
+
+### Multi-Server Airport Terminal Example
+
+A multi-server airport terminal scenario is used to demonstrate the **M/M/m** model.
+
+#### Average Queue Length
+
+![Average queue length at the airport terminal](Results/Figure_3.png)
+
+#### Average Total Time
+
+![Average total time at the airport terminal](Results/Figure_4.png)
+
+Two service classes are considered:
+
+- **Business Class** with `m = 2` servers
+- **Economy Class** with `m = 5` servers
+
+Although the economy-class system has more servers, it also has a much higher arrival rate. As a result, its utilization is significantly higher, which leads to a much longer queue and a longer average total time in the system.
+
+### Validation
+
+Across all tested scenarios, the simulated values remain very close to the theoretical results. The small discrepancies are mainly caused by the finite simulation runtime and the randomness of event samples, which is expected in stochastic simulation.
+
+The results show that the discrete-event simulator provides accurate performance estimates for a variety of queueing systems.
 
 ## Tools
 
